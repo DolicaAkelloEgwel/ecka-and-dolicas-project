@@ -14,6 +14,7 @@ WIFI_NAMES = ("eduroam", "UAL-IoT", "UAL-WiFi", "UAL-Guest-WiFi", "Igloo")
 
 MIN_RECORDINGS = 30
 MIN_NETWORKS_NEEDED = 10
+MAX_SCANS = 200
 
 
 def calculate_median(vals):
@@ -30,7 +31,7 @@ def calculate_median(vals):
 
 counter = 0
 
-while counter < 200:
+while counter < MAX_SCANS:
 
     data, addr = sock.recvfrom(2048)
     data = data.decode()
@@ -55,7 +56,7 @@ while counter < 200:
     # stop when at least 30 recordings have been taken for at least 10 networks
     if (
         sum([len(vals) >= MIN_RECORDINGS for vals in RSSI_VALUES.values()])
-        > MIN_NETWORKS_NEEDED
+        >= MIN_NETWORKS_NEEDED
     ):
         break
 
