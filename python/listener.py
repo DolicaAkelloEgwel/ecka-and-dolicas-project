@@ -6,13 +6,13 @@ RSSI_VALUES = dict()
 
 # create a socket for listening to M5Stick messages
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(("0.0.0.0", 8000))
+sock.bind(("0.0.0.0", 8080))
 print("Listening...")
 
 # track names of nearby wifi networks
 WIFI_NAMES = ("eduroam", "UAL-IoT", "UAL-WiFi", "UAL-Guest-WiFi", "Igloo")
 
-MAX_RECORDINGS = 50
+MIN_RECORDINGS = 30
 MIN_NETWORKS_NEEDED = 10
 
 
@@ -48,15 +48,13 @@ while counter < 200:
         if combined_name not in RSSI_VALUES:
             RSSI_VALUES[combined_name] = []
 
-        # take 50 recordings
-        if len(RSSI_VALUES[combined_name]) < MAX_RECORDINGS:
-            RSSI_VALUES[combined_name].append(d[key]["rssi"])
+        RSSI_VALUES[combined_name].append(d[key]["rssi"])
 
     counter += 1
 
-    # stop when 50 recordings have been taken for at least 10 networks
+    # stop when at least 30 recordings have been taken for at least 10 networks
     if (
-        sum([len(vals) == MAX_RECORDINGS for vals in RSSI_VALUES.values()])
+        sum([len(vals) >= MIN_RECORDINGS for vals in RSSI_VALUES.values()])
         > MIN_NETWORKS_NEEDED
     ):
         break
@@ -64,8 +62,7 @@ while counter < 200:
     print(RSSI_VALUES)
 
 # calculate the median rssi value
-for key in RSSI_VALUES:
-    if len(RSSI_VALUES[key]) == 50:
-        print(f"{key}: {calculate_median(RSSI_VALUES[key])}")
-    else:
-        print(len(RSSI_VALUES[key]))
+with open("recordings", "a") as f:
+    for key in RSSI_VALUES:
+        if len(RSSI_VALUES[key]) >= MIN_RECORDINGS:
+            f.write(f"{key}: {calculate_median(RSSI_VALUES[key])}\n")
