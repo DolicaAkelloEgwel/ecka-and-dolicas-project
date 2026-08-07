@@ -30,6 +30,7 @@ def format_mac(mac):
 def setup():
     global wlan
     M5.begin()
+    M5.Display.setBrightness(0)
     Widgets.setRotation(0)
     Widgets.fillScreen(0x000000)
     wlan = network.WLAN(network.STA_IF)
