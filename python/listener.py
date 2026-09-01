@@ -63,4 +63,8 @@ while True:
 
         combined_name = f"{d[key]['name']}-{key}"
 
+        # continue if the network isn't in the dictionary
+        if combined_name not in rssi_ranges:
+            continue
+
         rssi_ranges[combined_name].send_osc_message(combined_name, d[key]["rssi"])
