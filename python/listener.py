@@ -79,8 +79,7 @@ if SIMULATE:
             val = rssi_ranges[key].simulate()
             rssi_ranges[key].send_osc_message(key, val)
             print(key, val)
-        time.sleep(0.1)
-
+        time.sleep(1.5)
 
 
 while True:
