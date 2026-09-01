@@ -1,7 +1,7 @@
 import argparse
 import json
-import random
 import socket
+from random import randint, uniform
 
 from pythonosc import udp_client
 
@@ -29,13 +29,13 @@ class RSSIRange:
         self.prev = None
 
     def map(self, value):
-        return (value / diff) * 2 + self.offset
+        return (value / self.diff) * 2 + self.offset
 
     def simulate(self):
         if self.prev is None:
             self.prev = randint(self.min, self.max)
 
-        next_value = self.prev + random.uniform(-1, 1)
+        next_value = self.prev + uniform(-2, 2)
 
         if next_value < self.min:
             self.prev = self.min
@@ -48,8 +48,7 @@ class RSSIRange:
         self.prev = next_value
         return next_value
 
-    @staticmethod
-    def send_osc_message(name, val):
+    def send_osc_message(self, name, val):
         osc_client.send_message(f"/{name}", self.map(val))
 
 
@@ -75,7 +74,8 @@ if SIMULATE:
     while True:
         for key in rssi_ranges:
             val = rssi_ranges[key].simulate()
-            rssi_ranges[key].send_osc_message(val)
+            rssi_ranges[key].send_osc_message(key, val)
+            print(key, val)
 
 
 while True:
