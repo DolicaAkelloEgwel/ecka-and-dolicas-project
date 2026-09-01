@@ -7,6 +7,9 @@ from pythonosc import udp_client
 
 SIMULATE = True
 
+if SIMULATE:
+    import time
+
 # create a socket for listening to M5Stick messages
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind(("0.0.0.0", 8080))
@@ -35,7 +38,7 @@ class RSSIRange:
         if self.prev is None:
             self.prev = randint(self.min, self.max)
 
-        next_value = self.prev + uniform(-2, 2)
+        next_value = self.prev + uniform(-5, 5)
 
         if next_value < self.min:
             self.prev = self.min
@@ -76,6 +79,8 @@ if SIMULATE:
             val = rssi_ranges[key].simulate()
             rssi_ranges[key].send_osc_message(key, val)
             print(key, val)
+        time.sleep(0.1)
+
 
 
 while True:
