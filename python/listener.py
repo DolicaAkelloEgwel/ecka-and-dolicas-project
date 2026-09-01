@@ -1,13 +1,17 @@
+import argparse
 import json
 import socket
+
 from pythonosc import udp_client
 
-RSSI_VALUES = dict()
+SIMULATE = True
 
 # create a socket for listening to M5Stick messages
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind(("0.0.0.0", 8080))
 print("Listening...")
+
+osc_client = udp_client.SimpleUDPClient("127.0.0.1", 8000)
 
 # track names of nearby wifi networks
 WIFI_NAMES = ("eduroam", "UAL-IoT", "UAL-WiFi", "UAL-Guest-WiFi")
@@ -19,14 +23,33 @@ class RSSIRange:
         self.min = min_rssi
         self.max = max_rssi
         self.diff = abs(self.max - self.min)
-        self.offset = -self.min / self.diff - self.max / self.diff
+        self.offset = (1 / self.diff) * (-self.min - self.max)
+
+        self.prev = None
 
     def map(self, value):
         return (value / diff) * 2 + self.offset
 
+    def simulate(self):
+        if self.prev is None:
+            self.prev = randint(self.min, self.max)
+
+        next_value = self.prev + random.uniform(-1, 1)
+
+        if next_value < self.min:
+            self.prev = self.min
+            return self.min
+
+        if next_value > self.max:
+            self.prev = self.max
+            return self.max
+
+        self.prev = next_value
+        return next_value
+
     @staticmethod
     def send_osc_message(name, val):
-        osc_client.send_message(f"/{name}", val)
+        osc_client.send_message(f"/{name}", self.map(val))
 
 
 rssi_ranges = dict()
@@ -46,6 +69,12 @@ rssi_ranges["eduroam-a4:9b:cd:bf:3b:05"] = RSSIRange(-90, -59)
 rssi_ranges["UAL-IoT-a4:9b:cd:be:f8:e4"] = RSSIRange(-93, -55)
 rssi_ranges["eduroam-a4:9b:cd:be:f5:a5"] = RSSIRange(-96, -71)
 rssi_ranges["UAL-IoT-a4:9b:cd:be:f5:a4"] = RSSIRange(-95, -72)
+
+if SIMULATE:
+    while True:
+        for key in rssi_ranges:
+            val = rssi_ranges[key].simulate()
+            rssi_ranges[key].send_osc_message(val)
 
 
 while True:
