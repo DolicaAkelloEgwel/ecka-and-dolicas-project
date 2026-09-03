@@ -37,7 +37,7 @@ class RSSIRange:
             self.prev = None
 
     def _map(self, value):
-        return (value / self.diff) * 2 + self.offset
+        return 2 * (value / self.diff) + self.offset
 
     def simulate(self):
         if self.prev is None:
