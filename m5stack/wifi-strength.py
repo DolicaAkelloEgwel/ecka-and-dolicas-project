@@ -1,4 +1,3 @@
-# main.py
 import gc
 import json
 import socket
@@ -9,6 +8,8 @@ import network
 from M5 import *
 
 wlan = None
+THIRTEEN_HOURS = 46800000000
+EIGHT_PM = 20
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -36,6 +37,7 @@ def setup():
     Widgets.setRotation(0)
     Widgets.fillScreen(0x000000)
     time.sleep(2)
+    time.timezone("GMT+0")
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
     wlan.connect("TP-Link_9734", "12327423")
@@ -44,6 +46,8 @@ def setup():
 def wireless_scan():
     global wlan
     M5.update()
+    if (time.localtime())[3] == EIGHT_PM:
+        Power.deepSleep(THIRTEEN_HOURS, True)
 
     try:
         rssis = {
@@ -55,9 +59,6 @@ def wireless_scan():
         }
         print(f"Found {len(rssis)} networks in scan.")
         send_data(rssis)
-        Power.setLed(255)
-        time.sleep(0.1)
-        Power.setLed(0)
     except OSError as e:
         print(e)
         gc.collect()
@@ -66,7 +67,7 @@ def wireless_scan():
 if __name__ == "__main__":
     try:
         setup()
-        Speaker.setVolumePercentage(1)
+        Speaker.setVolumePercentage(0.75)
         Speaker.tone(2000, 1000)
         while True:
             wireless_scan()
