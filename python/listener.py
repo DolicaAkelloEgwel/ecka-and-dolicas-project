@@ -5,7 +5,11 @@ from random import randint, uniform
 
 from pythonosc import udp_client
 
-SIMULATE = True
+parser = argparse.ArgumentParser()
+parser.add_argument("--simulate", action="store_true")
+args = parser.parse_args()
+
+SIMULATE = args.simulate
 
 if SIMULATE:
     import time
@@ -29,9 +33,10 @@ class RSSIRange:
         self.diff = abs(self.max - self.min)
         self.offset = (1 / self.diff) * (-self.min - self.max)
 
-        self.prev = None
+        if SIMULATE:
+            self.prev = None
 
-    def map(self, value):
+    def _map(self, value):
         return (value / self.diff) * 2 + self.offset
 
     def simulate(self):
@@ -52,7 +57,7 @@ class RSSIRange:
         return next_value
 
     def send_osc_message(self, name, val):
-        osc_client.send_message(f"/{name}", self.map(val))
+        osc_client.send_message(f"/{name}", self._map(val))
 
 
 rssi_ranges = dict()
