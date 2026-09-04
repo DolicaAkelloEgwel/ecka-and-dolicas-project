@@ -1,7 +1,7 @@
 import argparse
 import json
 import socket
-from random import randint, uniform
+from random import randint, shuffle, uniform
 
 from pythonosc import udp_client
 
@@ -26,8 +26,9 @@ WIFI_NAMES = ("eduroam", "UAL-IoT", "UAL-WiFi", "UAL-Guest-WiFi")
 
 
 class RSSIRange:
-    def __init__(self, min_rssi, max_rssi):
+    def __init__(self, name, min_rssi, max_rssi):
 
+        self._name = name
         self.min = min_rssi
         self.max = max_rssi
         self.diff = abs(self.max - self.min)
@@ -56,35 +57,74 @@ class RSSIRange:
         self.prev = next_value
         return next_value
 
-    def send_osc_message(self, name, val):
-        osc_client.send_message(f"/{name}", self._map(val))
+    def send_osc_message(self, val):
+        osc_client.send_message(f"/{self._name}", self._map(val))
 
 
 rssi_ranges = dict()
-rssi_ranges["UAL-IoT-a4:9b:cd:bf:3b:04"] = RSSIRange(-91, -60)
-rssi_ranges["eduroam-a4:9b:cd:be:ea:25"] = RSSIRange(-92, -63)
-rssi_ranges["UAL-IoT-a4:9b:cd:be:ea:24"] = RSSIRange(-92, -62)
-rssi_ranges["eduroam-a4:9b:cd:bf:01:45"] = RSSIRange(-92, -68)
-rssi_ranges["UAL-IoT-a4:9b:cd:bf:01:44"] = RSSIRange(-93, -68)
-rssi_ranges["eduroam-a4:9b:cd:bf:28:a5"] = RSSIRange(-94, -70)
-rssi_ranges["eduroam-a4:9b:cd:bf:29:65"] = RSSIRange(-94, -75)
-rssi_ranges["UAL-IoT-a4:9b:cd:bf:29:64"] = RSSIRange(-94, -75)
-rssi_ranges["UAL-IoT-a4:9b:cd:bf:9d:c4"] = RSSIRange(-91, -62)
-rssi_ranges["eduroam-a4:9b:cd:bf:9d:c5"] = RSSIRange(-91, -62)
-rssi_ranges["UAL-IoT-a4:9b:cd:bf:28:a4"] = RSSIRange(-95, -70)
-rssi_ranges["eduroam-a4:9b:cd:be:f8:e5"] = RSSIRange(-92, -55)
-rssi_ranges["eduroam-a4:9b:cd:bf:3b:05"] = RSSIRange(-90, -59)
-rssi_ranges["UAL-IoT-a4:9b:cd:be:f8:e4"] = RSSIRange(-93, -55)
-rssi_ranges["eduroam-a4:9b:cd:be:f5:a5"] = RSSIRange(-96, -71)
-rssi_ranges["UAL-IoT-a4:9b:cd:be:f5:a4"] = RSSIRange(-95, -72)
-rssi_ranges["UAL-IoT-a4:9b:cd:bf:d7:c4"] = RSSIRange(-95, -78)
+rssi_ranges["UAL-IoT-a4:9b:cd:bf:3b:04"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:bf:3b:04", -91, -60
+)
+rssi_ranges["eduroam-a4:9b:cd:be:ea:25"] = RSSIRange(
+    "eduroam-a4:9b:cd:be:ea:25", -92, -63
+)
+rssi_ranges["UAL-IoT-a4:9b:cd:be:ea:24"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:be:ea:24", -92, -62
+)
+rssi_ranges["eduroam-a4:9b:cd:bf:01:45"] = RSSIRange(
+    "eduroam-a4:9b:cd:bf:01:45", -92, -68
+)
+rssi_ranges["UAL-IoT-a4:9b:cd:bf:01:44"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:bf:01:44", -93, -68
+)
+rssi_ranges["eduroam-a4:9b:cd:bf:28:a5"] = RSSIRange(
+    "eduroam-a4:9b:cd:bf:28:a5", -94, -70
+)
+rssi_ranges["eduroam-a4:9b:cd:bf:29:65"] = RSSIRange(
+    "eduroam-a4:9b:cd:bf:29:65", -94, -75
+)
+rssi_ranges["UAL-IoT-a4:9b:cd:bf:29:64"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:bf:29:64", -94, -75
+)
+rssi_ranges["UAL-IoT-a4:9b:cd:bf:9d:c4"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:bf:9d:c4", -91, -62
+)
+rssi_ranges["eduroam-a4:9b:cd:bf:9d:c5"] = RSSIRange(
+    "eduroam-a4:9b:cd:bf:9d:c5", -91, -62
+)
+rssi_ranges["UAL-IoT-a4:9b:cd:bf:28:a4"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:bf:28:a4", -95, -70
+)
+rssi_ranges["eduroam-a4:9b:cd:be:f8:e5"] = RSSIRange(
+    "eduroam-a4:9b:cd:be:f8:e5", -92, -55
+)
+rssi_ranges["eduroam-a4:9b:cd:bf:3b:05"] = RSSIRange(
+    "eduroam-a4:9b:cd:bf:3b:05", -90, -59
+)
+rssi_ranges["UAL-IoT-a4:9b:cd:be:f8:e4"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:be:f8:e4", -93, -55
+)
+rssi_ranges["eduroam-a4:9b:cd:be:f5:a5"] = RSSIRange(
+    "eduroam-a4:9b:cd:be:f5:a5", -96, -71
+)
+rssi_ranges["UAL-IoT-a4:9b:cd:be:f5:a4"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:be:f5:a4", -95, -72
+)
+rssi_ranges["UAL-IoT-a4:9b:cd:bf:d7:c4"] = RSSIRange(
+    "UAL-IoT-a4:9b:cd:bf:d7:c4", -95, -78
+)
 
 if SIMULATE:
     while True:
-        for key in rssi_ranges:
-            val = rssi_ranges[key].simulate()
-            rssi_ranges[key].send_osc_message(key, val)
-            print(key, val)
+
+        networks = list(rssi_ranges.values())
+        shuffle(networks)
+        networks = networks[:8]
+
+        for network in networks:
+            val = network.simulate()
+            network.send_osc_message(val)
+            print(network._name, val)
         time.sleep(1.5)
 
 
