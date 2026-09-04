@@ -15,4 +15,9 @@ for name in fnames:
 for key in strength_values:
     strength_values[key].sort()
     if len(strength_values[key]) > 1000:
-        print(key, len(strength_values[key]), strength_values[key][:10], strength_values[key][-10:])
+        print(
+            key,
+            len(strength_values[key]),
+            strength_values[key][:10],
+            strength_values[key][-10:],
+        )
