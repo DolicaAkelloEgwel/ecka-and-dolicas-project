@@ -77,6 +77,7 @@ rssi_ranges["eduroam-a4:9b:cd:bf:3b:05"] = RSSIRange(-90, -59)
 rssi_ranges["UAL-IoT-a4:9b:cd:be:f8:e4"] = RSSIRange(-93, -55)
 rssi_ranges["eduroam-a4:9b:cd:be:f5:a5"] = RSSIRange(-96, -71)
 rssi_ranges["UAL-IoT-a4:9b:cd:be:f5:a4"] = RSSIRange(-95, -72)
+rssi_ranges["UAL-IoT-a4:9b:cd:bf:d7:c4"] = RSSIRange(-95, -78)
 
 if SIMULATE:
     while True:
