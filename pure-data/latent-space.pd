@@ -1,124 +1,126 @@
-#N canvas 4 56 2546 1342 12;
-#X obj 1208 1292 dac~;
-#X obj 421 712 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#N canvas 4 32 1268 1351 12;
+#X obj 1208 1301 dac~;
+#X obj 421 721 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 421 867 sig~;
-#X obj 622 707 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 421 876 sig~;
+#X obj 622 716 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 601 862 sig~;
-#X obj 714 703 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 601 871 sig~;
+#X obj 714 712 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 714 858 sig~;
-#X obj 530 712 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 714 867 sig~;
+#X obj 530 721 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 498 867 sig~;
-#X obj 106 45 netreceive -u -b 8000;
-#X obj 137 80 oscparse;
-#X obj 81 167 list trim;
-#X floatatom 530 667 5 -1 1 0 - - - 0;
-#X floatatom 622 662 5 -1 1 0 - - - 0;
-#X floatatom 390 667 5 -1 1 0 - - - 0;
-#X floatatom 714 658 5 -1 1 0 - - - 0;
-#X obj 1221 1233 *~;
-#X obj 394 612 line 0 1;
-#X msg 375 576 \$1 250;
-#X obj 525 612 line 0 1;
-#X msg 506 576 \$1 250;
-#X obj 636 607 line 0 1;
-#X msg 617 571 \$1 250;
-#X obj 714 614 line 0 1;
-#X msg 714 570 \$1 250;
-#X obj 610 20 route UAL-IoT-a4:9b:cd:bf:3b:04;
-#X obj 610 49 route eduroam-a4:9b:cd:be:ea:25;
-#X obj 610 78 route UAL-IoT-a4:9b:cd:be:ea:24;
-#X obj 610 107 route eduroam-a4:9b:cd:bf:01:45;
-#X obj 1321 1148 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 498 876 sig~;
+#X obj 106 54 netreceive -u -b 8000;
+#X obj 137 89 oscparse;
+#X obj 81 176 list trim;
+#X floatatom 530 676 5 -1 1 0 - - - 0;
+#X floatatom 622 671 5 -1 1 0 - - - 0;
+#X floatatom 390 676 5 -1 1 0 - - - 0;
+#X floatatom 714 667 5 -1 1 0 - - - 0;
+#X obj 1221 1242 *~;
+#X obj 394 621 line 0 1;
+#X msg 375 585 \$1 250;
+#X obj 525 621 line 0 1;
+#X msg 506 585 \$1 250;
+#X obj 636 616 line 0 1;
+#X msg 617 580 \$1 250;
+#X obj 714 623 line 0 1;
+#X msg 714 579 \$1 250;
+#X obj 610 29 route UAL-IoT-a4:9b:cd:bf:3b:04;
+#X obj 610 58 route eduroam-a4:9b:cd:be:ea:25;
+#X obj 610 87 route UAL-IoT-a4:9b:cd:be:ea:24;
+#X obj 610 116 route eduroam-a4:9b:cd:bf:01:45;
+#X obj 1321 1157 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1250 1103 nn~ ecka-model.ts decode 32768;
-#X obj 829 717 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1250 1112 nn~ ecka-model.ts decode 32768;
+#X obj 829 726 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 828 869 sig~;
-#X floatatom 825 672 5 -1 1 0 - - - 0;
-#X obj 813 607 line 0 1;
-#X msg 813 563 \$1 250;
-#X obj 914 719 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 828 878 sig~;
+#X floatatom 825 681 5 -1 1 0 - - - 0;
+#X obj 813 616 line 0 1;
+#X msg 813 572 \$1 250;
+#X obj 914 728 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 911 870 sig~;
-#X floatatom 910 668 5 -1 1 0 - - - 0;
-#X obj 897 618 line 0 1;
-#X msg 897 574 \$1 250;
-#X obj 987 725 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 911 879 sig~;
+#X floatatom 910 677 5 -1 1 0 - - - 0;
+#X obj 897 627 line 0 1;
+#X msg 897 583 \$1 250;
+#X obj 987 734 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 981 870 sig~;
-#X floatatom 984 667 5 -1 1 0 - - - 0;
-#X obj 976 622 line 0 1;
-#X msg 976 578 \$1 250;
-#X obj 1080 719 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 981 879 sig~;
+#X floatatom 984 676 5 -1 1 0 - - - 0;
+#X obj 976 631 line 0 1;
+#X msg 976 587 \$1 250;
+#X obj 1080 728 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1074 870 sig~;
-#X floatatom 1067 668 5 -1 1 0 - - - 0;
-#X obj 1055 624 line 0 1;
-#X msg 1055 580 \$1 250;
-#X obj 610 136 route UAL-IoT-a4:9b:cd:bf:01:44;
-#X obj 610 165 route eduroam-a4:9b:cd:bf:28:a5;
-#X obj 610 194 route eduroam-a4:9b:cd:bf:29:65;
-#X obj 610 223 route UAL-IoT-a4:9b:cd:bf:29:64;
-#X obj 1162 727 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1074 879 sig~;
+#X floatatom 1067 677 5 -1 1 0 - - - 0;
+#X obj 1055 633 line 0 1;
+#X msg 1055 589 \$1 250;
+#X obj 610 145 route UAL-IoT-a4:9b:cd:bf:01:44;
+#X obj 610 174 route eduroam-a4:9b:cd:bf:28:a5;
+#X obj 610 203 route eduroam-a4:9b:cd:bf:29:65;
+#X obj 610 232 route UAL-IoT-a4:9b:cd:bf:29:64;
+#X obj 1162 736 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1158 870 sig~;
-#X floatatom 1158 665 5 -1 1 0 - - - 0;
-#X obj 1145 625 line 0 1;
-#X msg 1145 581 \$1 250;
-#X obj 1245 734 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1158 879 sig~;
+#X floatatom 1158 674 5 -1 1 0 - - - 0;
+#X obj 1145 634 line 0 1;
+#X msg 1145 590 \$1 250;
+#X obj 1245 743 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1246 873 sig~;
-#X floatatom 1245 689 5 -1 1 0 - - - 0;
-#X obj 1233 624 line 0 1;
-#X msg 1233 580 \$1 250;
-#X obj 1330 729 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1246 882 sig~;
+#X floatatom 1245 698 5 -1 1 0 - - - 0;
+#X obj 1233 633 line 0 1;
+#X msg 1233 589 \$1 250;
+#X obj 1330 738 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1330 870 sig~;
-#X floatatom 1330 684 5 -1 1 0 - - - 0;
-#X obj 1330 640 line 0 1;
-#X msg 1322 585 \$1 250;
-#X obj 1428 725 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1330 879 sig~;
+#X floatatom 1330 693 5 -1 1 0 - - - 0;
+#X obj 1330 649 line 0 1;
+#X msg 1322 594 \$1 250;
+#X obj 1428 734 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1428 870 sig~;
-#X floatatom 1428 680 5 -1 1 0 - - - 0;
-#X obj 1428 636 line 0 1;
-#X msg 1428 592 \$1 250;
-#X obj 610 252 route eduroam-a4:9b:cd:bf:9d:c5;
-#X obj 610 281 route UAL-IoT-a4:9b:cd:bf:28:a4;
-#X obj 610 310 route eduroam-a4:9b:cd:be:f8:e5;
-#X obj 610 339 route eduroam-a4:9b:cd:bf:3b:05;
-#X obj 1539 717 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1428 879 sig~;
+#X floatatom 1428 689 5 -1 1 0 - - - 0;
+#X obj 1428 645 line 0 1;
+#X msg 1428 601 \$1 250;
+#X obj 610 261 route eduroam-a4:9b:cd:bf:9d:c5;
+#X obj 610 290 route UAL-IoT-a4:9b:cd:bf:28:a4;
+#X obj 610 319 route eduroam-a4:9b:cd:be:f8:e5;
+#X obj 610 348 route eduroam-a4:9b:cd:bf:3b:05;
+#X obj 1539 726 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1529 870 sig~;
-#X floatatom 1539 675 5 -1 1 0 - - - 0;
-#X obj 1535 637 line 0 1;
-#X msg 1527 596 \$1 250;
-#X obj 1646 717 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1529 879 sig~;
+#X floatatom 1539 684 5 -1 1 0 - - - 0;
+#X obj 1535 646 line 0 1;
+#X msg 1527 605 \$1 250;
+#X obj 1646 726 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1636 870 sig~;
-#X floatatom 1644 674 5 -1 1 0 - - - 0;
-#X obj 1642 637 line 0 1;
-#X msg 1634 596 \$1 250;
-#X obj 1776 716 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1636 879 sig~;
+#X floatatom 1644 683 5 -1 1 0 - - - 0;
+#X obj 1642 646 line 0 1;
+#X msg 1634 605 \$1 250;
+#X obj 1776 725 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1766 870 sig~;
-#X floatatom 1774 672 5 -1 1 0 - - - 0;
-#X obj 1772 636 line 0 1;
-#X msg 1764 595 \$1 250;
-#X obj 610 368 route UAL-IoT-a4:9b:cd:be:f8:e4;
-#X obj 610 397 route eduroam-a4:9b:cd:be:f5:a5;
-#X obj 1916 713 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
+#X obj 1766 879 sig~;
+#X floatatom 1774 681 5 -1 1 0 - - - 0;
+#X obj 1772 645 line 0 1;
+#X msg 1764 604 \$1 250;
+#X obj 610 377 route UAL-IoT-a4:9b:cd:be:f8:e4;
+#X obj 610 406 route eduroam-a4:9b:cd:be:f5:a5;
+#X obj 1916 722 vsl 15 128 -1 1 0 0 empty empty empty 0 -9 0 10 #fcfcfc
 #000000 #000000 0 1;
-#X obj 1906 870 sig~;
-#X floatatom 1918 668 5 -1 1 0 - - - 0;
-#X obj 1912 633 line 0 1;
-#X msg 1904 592 \$1 250;
-#X obj 610 426 route UAL-IoT-a4:9b:cd:be:f5:a4;
-#X obj 610 455 route UAL-IoT-a4:9b:cd:bf:d7:c4;
+#X obj 1906 879 sig~;
+#X floatatom 1918 677 5 -1 1 0 - - - 0;
+#X obj 1912 642 line 0 1;
+#X msg 1904 601 \$1 250;
+#X obj 610 435 route UAL-IoT-a4:9b:cd:be:f5:a4;
+#X obj 610 464 route UAL-IoT-a4:9b:cd:bf:d7:c4;
+#X obj 937 203 loadbang;
+#X msg 968 275 \; pd dsp 1;
 #X connect 1 0 2 0;
 #X connect 2 0 30 0;
 #X connect 3 0 4 0;
@@ -237,4 +239,5 @@
 #X connect 100 0 99 0;
 #X connect 101 0 93 0;
 #X connect 102 0 100 0;
-#X coords 0 40260 20 40230 0 0 0;
+#X connect 103 0 104 0;
+#X coords 0 40530 20 40500 0 0 0;
