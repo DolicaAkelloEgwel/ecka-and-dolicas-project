@@ -85,15 +85,15 @@ rssi_ranges = {network._name: network for network in rssi_ranges}
 
 while SIMULATE:
 
-        networks = list(rssi_ranges.values())
-        shuffle(networks)
-        networks = networks[:8]
+    networks = list(rssi_ranges.values())
+    shuffle(networks)
+    networks = networks[:8]
 
-        for network in networks:
-            val = network.simulate()
-            network.send_osc_message(val)
-            print(network._name, val)
-        time.sleep(1.5)
+    for network in networks:
+        val = network.simulate()
+        network.send_osc_message(val)
+        print(network._name, val)
+    time.sleep(1.5)
 
 
 while True:
