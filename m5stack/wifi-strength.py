@@ -8,12 +8,18 @@ import network
 from M5 import *
 
 wlan = None
-THIRTEEN_HOURS = 46800000000
 EIGHT_PM = 20
+FRIDAY = 4
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-TARGETS = ("eduroam", "UAL-Guest-WiFi", "UAL-IoT", "UAL-WiFi")
+
+def hours_to_microseconds(hours):
+    return hours * 3600000000
+
+
+OVERNIGHT_BREAK = hours_to_microseconds(13)
+WEEKEND_BREAK = hours_to_microseconds(61)
 
 
 def send_data(rssi_data):
@@ -46,8 +52,13 @@ def setup():
 def wireless_scan():
     global wlan
     M5.update()
-    if (time.localtime())[3] == EIGHT_PM:
-        Power.deepSleep(THIRTEEN_HOURS, True)
+
+    current_time = time.localtime()
+    if current_time[3] == EIGHT_PM:
+        if current_time[6] == FRIDAY:
+            Power.deepSleep(WEEKEND_BREAK, True)
+        else:
+            Power.deepSleep(OVERNIGHT_BREAK, True)
 
     try:
         rssis = {
