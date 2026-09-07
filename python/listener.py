@@ -83,8 +83,7 @@ rssi_ranges = [
 
 rssi_ranges = {network._name: network for network in rssi_ranges}
 
-if SIMULATE:
-    while True:
+while SIMULATE:
 
         networks = list(rssi_ranges.values())
         shuffle(networks)
