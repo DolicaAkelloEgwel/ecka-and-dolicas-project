@@ -41,20 +41,20 @@ class RSSIRange:
         return 2 * (value / self._diff) + self._offset
 
     def simulate(self):
-        if self.prev is None:
-            self.prev = randint(self._min, self._max)
+        if self._prev is None:
+            self._prev = randint(self._min, self._max)
 
-        next_value = self.prev + uniform(-5, 5)
+        next_value = self._prev + uniform(-5, 5)
 
         if next_value < self._min:
-            self.prev = self._min
+            self._prev = self._min
             return self._min
 
         if next_value > self._max:
-            self.prev = self._max
+            self._prev = self._max
             return self._max
 
-        self.prev = next_value
+        self._prev = next_value
         return next_value
 
     def send_osc_message(self, val):
