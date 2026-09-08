@@ -93,7 +93,7 @@ while SIMULATE:
         val = network.simulate()
         network.send_osc_message(val)
         print(network._name, val)
-    time.sleep(1.5)
+    time.sleep(2.5)
 
 
 while True:
@@ -101,7 +101,7 @@ while True:
     data, addr = sock.recvfrom(2048)
     data = data.decode()
     d = json.loads(data)
-    print("Received data.")
+    print("Received data.", d)
 
     for key in d.keys():
 
